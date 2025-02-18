@@ -214,9 +214,12 @@ define([], function () {
                 var iconCls = 'btn-promote';
                 btn = $('<div id="' + btnId + '" class="tool custom toolbar__icon ' + iconCls + '"></div>');
                 btn.on('click', _.bind(function() {
+                    var tip = btn.data('bs.tooltip');
+                    if (tip) tip.dontShow = true;
                     this.fireEvent('docked', this.frameId);
                 }, this));
                 header.append(btn);
+                btn.tooltip({title: this.textDock, placement: 'cursor', zIndex: parseInt(this.$window.css('z-index')) + 10});
             }
             btn.show();
             header.removeClass('hidden');
@@ -244,6 +247,7 @@ define([], function () {
             }
         },
 
-        textLoading : 'Loading'
+        textLoading : 'Loading',
+        textDock: 'Pin plugin'
     }, Common.Views.PluginDlg || {}));
 });
